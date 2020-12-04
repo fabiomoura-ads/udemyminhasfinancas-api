@@ -38,10 +38,10 @@ public class Lancamento {
 	private String descricao;
 	
 	@Column( name = "mes")
-	private int mes;
+	private Integer mes;
 	
 	@Column( name = "ano")
-	private int ano;
+	private Integer ano;
 	
 	@ManyToOne
 	@JoinColumn( name = "id_usuario")
