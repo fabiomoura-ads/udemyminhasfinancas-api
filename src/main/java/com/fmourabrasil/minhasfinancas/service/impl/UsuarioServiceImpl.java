@@ -1,5 +1,6 @@
 package com.fmourabrasil.minhasfinancas.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fmourabrasil.minhasfinancas.exception.ErroAutenticaException;
 import com.fmourabrasil.minhasfinancas.exception.RegraNegocioException;
 import com.fmourabrasil.minhasfinancas.model.entity.Usuario;
+import com.fmourabrasil.minhasfinancas.model.repository.LancamentoRepository;
 import com.fmourabrasil.minhasfinancas.model.repository.UsuarioRepository;
 import com.fmourabrasil.minhasfinancas.service.UsuarioService;
 
@@ -16,7 +18,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	private UsuarioRepository repository;
 		
-	public UsuarioServiceImpl(UsuarioRepository repository) {
+	public UsuarioServiceImpl(UsuarioRepository repository, LancamentoRepository lancamentoRepository) {
 		super();
 		this.repository = repository;
 	}
@@ -52,5 +54,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		
 	}
+
+	@Override
+	public Optional<Usuario> obterPorId(Long id) {
+		 return repository.findById(id);			
+	}
+
+	@Override
+	public List<Usuario> listar() {
+		return repository.findAll();
+	}
+
 
 }

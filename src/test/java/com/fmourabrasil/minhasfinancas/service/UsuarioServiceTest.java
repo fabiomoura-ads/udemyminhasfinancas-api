@@ -1,11 +1,10 @@
 package com.fmourabrasil.minhasfinancas.service;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -97,15 +96,13 @@ public class UsuarioServiceTest {
 	@Test
 	public void deveAutenticarUsuarioComSucesso(){
 
+		//cenário
 		String email = "usuario@email.com";
 		String senha = "123456";
-		
-		//cenário
+	
 		Usuario usuario = Usuario.builder().email(email).senha(senha).id(1L).build();
 		Mockito.when(repository.findByEmail(email)).thenReturn(Optional.of(usuario));
-		
-		System.out.println("USUARIO::: " + usuario);
-		
+				
 		//ação
 		Usuario result = service.autenticar(email, senha);
 		

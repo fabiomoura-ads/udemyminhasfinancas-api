@@ -3,6 +3,7 @@ package com.fmourabrasil.minhasfinancas.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fmourabrasil.minhasfinancas.exception.RegraNegocioException;
 import com.fmourabrasil.minhasfinancas.model.entity.Lancamento;
 import com.fmourabrasil.minhasfinancas.model.enums.StatusLancamento;
+import com.fmourabrasil.minhasfinancas.model.enums.TipoLancamento;
 import com.fmourabrasil.minhasfinancas.model.repository.LancamentoRepository;
 import com.fmourabrasil.minhasfinancas.service.LancamentoService;
 
@@ -49,8 +51,7 @@ public class LancamentoServiceImpl implements LancamentoService{
 	@Transactional(readOnly = true)
 	public List<Lancamento> buscar(Lancamento lancamentoBusca) {
 		Example example = Example.of(lancamentoBusca, 
-				ExampleMatcher.matching()
-				.withIgnoreCase()
+				ExampleMatcher.matching().withIgnoreCase()
 				.withStringMatcher(StringMatcher.CONTAINING));
 		
 		return repository.findAll(example);
@@ -86,4 +87,29 @@ public class LancamentoServiceImpl implements LancamentoService{
 		}			
 	}
 
+	@Override
+	public Optional<Lancamento> obterPorId(Long id) {		
+		return repository.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public BigDecimal obterSaldoDoUsuario(Long id) {
+		BigDecimal receita = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA);
+		BigDecimal despesa = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA);
+		
+		System.out.println("VALOR RECEITA > " + receita.longValue());
+		System.out.println("VALOR DESPESA > " + despesa.longValue());
+		
+		if( receita == null ) {
+			receita = BigDecimal.ZERO;
+		}
+		
+		if( despesa == null ) {
+			despesa = BigDecimal.ZERO;
+		}		
+				
+		return receita.subtract(despesa);
+	}
+	
 }

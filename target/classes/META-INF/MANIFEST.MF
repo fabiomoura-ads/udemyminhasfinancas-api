@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: minhasfinancas
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Fábio Moura
+Implementation-Vendor-Id: com.fmourabrasil
+Build-Jdk: 1.8.0_271
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/minhasfinancas
+Created-By: Maven Integration for Eclipse
+
