@@ -42,8 +42,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
-		validarEmail(usuario.getEmail());		
+		validarEmail(usuario.getEmail());
+		validarDadosObrigatorios(usuario);
 		return repository.save(usuario);
+	}
+
+	private void validarDadosObrigatorios(Usuario usuario) {
+		if ( usuario.getNome().isEmpty() ) {
+			throw new RegraNegocioException("Nome do usuário é obrigatório e não foi informado.");
+		}
+		if ( usuario.getEmail().isEmpty() ) {
+			throw new RegraNegocioException("Email do usuário é obrigatório e não foi informado.");
+		}
+		if ( usuario.getSenha().isEmpty() ) {
+			throw new RegraNegocioException("Senha do usuário é obrigatório e não foi informado.");
+		}	
+		
 	}
 
 	@Override

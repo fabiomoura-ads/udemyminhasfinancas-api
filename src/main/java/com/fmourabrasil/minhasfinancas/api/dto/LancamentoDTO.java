@@ -19,11 +19,15 @@ import com.fmourabrasil.minhasfinancas.model.entity.Usuario;
 import com.fmourabrasil.minhasfinancas.model.enums.StatusLancamento;
 import com.fmourabrasil.minhasfinancas.model.enums.TipoLancamento;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LancamentoDTO {
 
 	private Long id;

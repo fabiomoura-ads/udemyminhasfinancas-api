@@ -57,9 +57,9 @@ public class UsuarioResource {
 	
 		try {
 			
-			service.salvarUsuario(usuario);
-			
-			return new ResponseEntity(usuario, HttpStatus.CREATED);
+			Usuario usuarioSalvo = service.salvarUsuario(usuario);
+						
+			return new ResponseEntity(usuarioSalvo, HttpStatus.CREATED);
 						
 		}catch(RegraNegocioException e ) {
 			
