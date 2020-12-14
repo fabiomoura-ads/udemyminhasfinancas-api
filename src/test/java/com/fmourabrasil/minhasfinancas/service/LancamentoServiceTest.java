@@ -281,8 +281,8 @@ public class LancamentoServiceTest {
 		
 		//cenário	
 		Long id = 1L;
-		Mockito.when(repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA)).thenReturn(BigDecimal.valueOf(100));
-		Mockito.when(repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA)).thenReturn(BigDecimal.valueOf(100));
+		Mockito.when(repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA, StatusLancamento.EFETIVADO)).thenReturn(BigDecimal.valueOf(100));
+		Mockito.when(repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA, StatusLancamento.EFETIVADO)).thenReturn(BigDecimal.valueOf(100));
 		
 		//ação
 		BigDecimal saldo = service.obterSaldoDoUsuario(id);

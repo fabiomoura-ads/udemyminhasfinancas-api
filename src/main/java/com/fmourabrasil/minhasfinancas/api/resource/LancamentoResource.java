@@ -72,7 +72,7 @@ public class LancamentoResource {
 		
 		List<Lancamento> lancamentos = service.buscar(lancamentoFiltro);
 		
-		return ResponseEntity.ok(lancamentos);
+		return ResponseEntity.ok(lancamentos.get(0));
 	}	
 	
 	@PostMapping
@@ -105,8 +105,8 @@ public class LancamentoResource {
 				lancamento.setId(entidade.getId());
 				
 				service.atualizar(lancamento);
-				
-				return ResponseEntity.ok(lancamento);				
+								
+				return ResponseEntity.ok(retornaLancamentoDTO(lancamento));				
 				
 			}catch(RegraNegocioException e ) {
 				
@@ -173,6 +173,19 @@ public class LancamentoResource {
 		}
 		return optUsuario.get();
 	}
+	
+	public LancamentoDTO retornaLancamentoDTO(Lancamento lancamento) {
+		return LancamentoDTO.builder()
+				.id(lancamento.getId())
+				.descricao(lancamento.getDescricao())
+				.valor(lancamento.getValor())
+				.ano(lancamento.getAno())
+				.mes(lancamento.getMes())
+				.tipo(lancamento.getTipo().name())
+				.status(lancamento.getStatus().name())
+				.usuario(lancamento.getUsuario().getId())
+				.build();
+	}
 	public Lancamento retornaLancamento(LancamentoDTO dto) {
 		
 		Usuario usuario = this.usuarioService
@@ -194,4 +207,5 @@ public class LancamentoResource {
 		
 		
 	}
+	
 }
